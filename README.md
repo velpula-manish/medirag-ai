@@ -1,46 +1,51 @@
-# 🧬 MediRAG AI — Medical Q&A System using RAG + Endee
+# 🧬 MediRAG AI
 
-A production-grade medical AI assistant built using Retrieval Augmented Generation with Endee as the vector database and LLaMA 3 as the language model.
+<div align="center">
 
-## 🔗 Live Demo
-👉 [Click here to open the app](https://medirag-ai-4v4miutwq4nir8rrodapbw.streamlit.app)
+**Medical AI Assistant powered by RAG + Endee + LLaMA 3**
 
-## 📌 Project Overview
-MediRAG AI lets anyone ask medical questions in 10 languages and get accurate, detailed answers instantly. It includes a symptom checker, BMI calculator, medicine information lookup, and emergency contacts — all powered by AI.
+[![Streamlit](https://img.shields.io/badge/Streamlit-Live%20Demo-FF4B4B?style=for-the-badge&logo=streamlit)](https://medirag-ai-4v4miutwq4nir8rrodapbw.streamlit.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/velpula-manish/medirag-ai)
+[![Endee](https://img.shields.io/badge/Endee-Vector%20DB-00C853?style=for-the-badge)](https://github.com/endee-io/endee)
+[![LLaMA](https://img.shields.io/badge/LLaMA%203-70B-7C3AED?style=for-the-badge)](https://groq.com)
 
-## ❓ Problem Statement
-Millions of people lack access to quick, reliable medical information. Language barriers and lack of medical knowledge make it worse. MediRAG AI bridges this gap by providing instant AI-powered medical answers grounded in verified knowledge, in the user's own language.
+[Live Demo](https://medirag-ai-4v4miutwq4nir8rrodapbw.streamlit.app) • [GitHub](https://github.com/velpula-manish/medirag-ai) • [Endee](https://github.com/endee-io/endee)
 
-## ⚙️ System Design & Technical Approach
+</div>
+
+---
+
+## What is MediRAG AI?
+
+MediRAG AI is a production-grade medical assistant that answers any health question instantly in 10 languages. Built using Retrieval Augmented Generation with Endee as the vector database and LLaMA 3.3 70B as the language model.
+
+---
+
+## How Endee is Used
+
+Endee serves as the core vector database in this RAG pipeline. Medical documents are embedded using SentenceTransformers and stored in Endee. When a user asks a question, it is converted to a vector and Endee performs semantic similarity search to retrieve the top 3 most relevant documents. These are passed as context to LLaMA 3 which generates the final answer.
 ```
-User Question
-     ↓
-SentenceTransformer Embedding (all-MiniLM-L6-v2)
-     ↓
-Endee Vector Database — Semantic Search
-     ↓
-Top 3 Relevant Medical Documents Retrieved
-     ↓
-LLaMA 3.3 70B via Groq API
-     ↓
-Final Accurate Answer Displayed
+User Question → Embedding → Endee Vector Search → Top 3 Docs → LLaMA 3 → Answer
 ```
 
-## 🗄️ How Endee is Used
-Endee serves as the core vector database in this project. Medical documents are converted into vector embeddings using SentenceTransformers and stored in Endee. When a user asks a question, it is embedded into the same vector space and Endee performs semantic similarity search to retrieve the top 3 most relevant documents. These documents are passed as context to LLaMA 3 which generates a comprehensive, grounded answer.
+---
 
-## ✨ Features
-- 💬 Medical Q&A powered by RAG and LLaMA 3.3 70B
-- 🔍 AI Symptom Checker — enter symptoms, get possible conditions
-- ⚖️ BMI Calculator with personalized AI health advice
-- 💊 Medicine information — dosage, uses, side effects
-- 🚨 Emergency contacts and first aid guide
-- 🎤 Voice input support in 10 languages
-- 🌙 Dark and Light mode
-- 💾 Chat history saved automatically
-- 👍 👎 Feedback buttons on every answer
+## Features
 
-## 🛠️ Tech Stack
+| Feature | Description |
+|---------|-------------|
+| 💬 Medical Q&A | Ask any medical question in 10 languages |
+| 🔍 Symptom Checker | Enter symptoms, get possible conditions |
+| ⚖️ BMI Calculator | Calculate BMI with AI health advice |
+| 💊 Medicine Info | Dosage, uses and side effects lookup |
+| 🚨 Emergency Contacts | India emergency numbers and first aid |
+| 🎤 Voice Input | Speak your question in your language |
+| 🌙 Dark / Light Mode | Toggle between themes |
+| 💾 Chat History | Conversations saved automatically |
+
+---
+
+## Tech Stack
 
 | Component | Technology |
 |-----------|------------|
@@ -50,7 +55,30 @@ Endee serves as the core vector database in this project. Medical documents are 
 | Frontend | Streamlit |
 | Language | Python 3.12 |
 
-## 🚀 Setup & Execution
+---
+
+## System Design
+```
+┌─────────────────────────────────────────────────────┐
+│                   MediRAG AI                        │
+├─────────────────────────────────────────────────────┤
+│  User Question                                      │
+│       ↓                                             │
+│  SentenceTransformer Embedding                      │
+│       ↓                                             │
+│  Endee Vector Database — Semantic Search            │
+│       ↓                                             │
+│  Top 3 Relevant Medical Documents                   │
+│       ↓                                             │
+│  LLaMA 3.3 70B via Groq API                        │
+│       ↓                                             │
+│  Final Answer Displayed on Streamlit UI             │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## Quick Start
 ```bash
 # Clone the repository
 git clone https://github.com/velpula-manish/medirag-ai
@@ -59,15 +87,30 @@ cd medirag-ai
 # Install dependencies
 pip install -r requirements.txt
 
-# Add your Groq API key in Streamlit secrets
-# Create .streamlit/secrets.toml and add:
+# Add your Groq API key
+# Create .streamlit/secrets.toml
 # GROQ_API_KEY = "your_groq_api_key"
 
 # Run the app
 streamlit run app.py
 ```
 
-## ✅ Mandatory Repository Steps Completed
-- ⭐ Starred the official Endee repository at github.com/endee-io/endee
+---
+
+## Mandatory Repository Steps Completed
+
+- ⭐ Starred the official Endee repository — [endee-io/endee](https://github.com/endee-io/endee)
 - 🍴 Forked the repository to personal GitHub account
 - 🏗️ Built the project using Endee as the core vector database
+
+---
+
+## Live Demo
+
+👉 [Click here to open MediRAG AI](https://medirag-ai-4v4miutwq4nir8rrodapbw.streamlit.app)
+
+---
+
+<div align="center">
+Built with ❤️ by <a href="https://github.com/velpula-manish">Manishkumar</a>
+</div>

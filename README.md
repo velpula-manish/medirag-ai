@@ -23,7 +23,23 @@ MediRAG AI is a production-grade medical assistant that answers any health quest
 
 ## How Endee is Used
 
-Endee serves as the core vector database in this RAG pipeline. Medical documents are embedded using SentenceTransformers and stored in Endee. When a user asks a question, it is converted to a vector and Endee performs semantic similarity search to retrieve the top 3 most relevant documents. These are passed as context to LLaMA 3 which generates the final answer.
+This project is built with the Endee vector database architecture. The RAG pipeline 
+uses Endee's Python client (`pip install endee`) for vector storage and semantic search.
+
+The vector embeddings are created using SentenceTransformers and stored using 
+Endee's index API:
+
+from endee import Endee
+from endee.index import VectorItem
+
+client = Endee()
+idx = client.create_index(name="medical", dimension=384, space_type="cosine")
+idx.upsert([VectorItem(id=str(i), vector=embedding, metadata={"text": doc})])
+results = idx.query(vector=query_vector, top_k=3)
+
+Note: Endee requires a running server instance. For the hosted deployment on 
+Streamlit Cloud, FAISS is used as a compatible fallback since Endee's server 
+requires Docker which is not available on Streamlit Cloud's free tier.
 ```
 User Question → Embedding → Endee Vector Search → Top 3 Docs → LLaMA 3 → Answer
 ```
